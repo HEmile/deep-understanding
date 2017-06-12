@@ -5,16 +5,18 @@ from tensorflow.contrib import learn
 from tensorflow.contrib.learn.python.learn.estimators import model_fn as model_fn_lib
 
 def model(features, labels, mode):
-    input_layer = tf.reshape(features, [-1, 23, 1])
+    input_layer = tf.reshape(features, [-1, 23])
     layer_1 = layers.fully_connected(inputs=input_layer,
                                      num_outputs=100)
     output_layer = layers.fully_connected(inputs=layer_1,
                                           num_outputs=1,
                                           activation_fn=None)
+    cross_entropy = None
+    optimizer = None
     if mode != learn.ModeKeys.INFER:
         cross_entropy = tf.losses.sigmoid_cross_entropy(
             multi_class_labels=tf.reshape(labels, [-1]),
-            logits=output_layer
+            logits=tf.reshape(output_layer, [-1])
         )
     if mode == learn.ModeKeys.TRAIN:
         optimizer = tf.contrib.layers.optimize_loss(
@@ -22,7 +24,7 @@ def model(features, labels, mode):
             global_step=tf.contrib.framework.get_global_step(),
             learning_rate=0.001,
             optimizer="SGD")
-    activated = tf.sigmoid(output_layer)
+    activated = tf.sigmoid(output_layer, name='sigmoid_tensor')
     predictions = {
          "classes": tf.round(activated),
          "probabilities": activated
