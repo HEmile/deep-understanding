@@ -11,6 +11,6 @@ def retrieveData(file_loc = "data/UCI_Credit_Card.csv"):
 		next(data) #skip header
 		read_data = csv.reader(data)
 		for column in read_data:
-			x.append(column[:-1])
+			x.append(column[1:-1])
 			y.append(column[-1])
 	return x, y
