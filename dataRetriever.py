@@ -9,8 +9,7 @@ def retrieveData(file_loc="data/UCI_Credit_Card.csv", randomize=True, make_float
 	x = []
 	y = []
 	with open(file_loc) as data:
-		next(data) #skip header1
-		next(data) #skip header2
+		next(data) #skip header
 		read_data = csv.reader(data)
 		for column in read_data:
 			if make_floats:
@@ -19,9 +18,10 @@ def retrieveData(file_loc="data/UCI_Credit_Card.csv", randomize=True, make_float
 			else:
 				x.append(column[1:-1])
 				y.append(column[-1])
+				
 	if randomize:
 		combined = list(zip(x, y))
 		random.shuffle(combined)
-
 		x[:], y[:] = zip(*combined)
+
 	return x, y
