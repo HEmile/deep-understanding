@@ -2,20 +2,13 @@ import tensorflow as tf
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import normalize
+import dataRetriever
 
 RANDOM_SEED = 42
 tf.set_random_seed(RANDOM_SEED)
 
-def get_data(path):
-  data = []
-  target = []
-  with open(path, mode='r') as f:
-      for line in f:
-          if line.startswith('"ID"'): # ignore header
-              continue
-          nl = line.split(',')
-          data.append(nl[1:len(nl)-1])
-          target.append(nl[len(nl)-1])
+def get_data():
+  data, target = dataRetriever.get_data()
   data = np.array(data, dtype="float64")
   data = np.concatenate((data, np.ones((data.shape[0],1))),axis=1) # add bias term
   data = normalize(data, axis=0, norm='max')
@@ -41,7 +34,7 @@ def forwardprop(X, w_1, w_2):
 
 
 def main():
-  train_X, test_X, train_y, test_y = get_data("data/UCI_Credit_Card.csv")
+  train_X, test_X, train_y, test_y = get_data()
 
   # Layer's sizes
   x_size = train_X.shape[1]  # Number of input nodes: many features and 1 bias

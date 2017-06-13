@@ -10,7 +10,8 @@ tensors_to_log = {"probabilities": "sigmoid_tensor"}
 logging_hook = tf.train.LoggingTensorHook(
     tensors=tensors_to_log, every_n_iter=50)
 
-x, y = dataRetriever.retrieveData()
+x, y = dataRetriever.retrieveData(file_loc='dengue_features_train.csv')
+
 x = np.array(x, dtype=np.float32)
 y = np.array(y, dtype=np.float32)
 xtrain, ytrain = x[:25000], y[:25000]
