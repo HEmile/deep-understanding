@@ -36,7 +36,14 @@ def get_data(path_features="data/dengue_features_train.csv", path_labels='data/d
         read_data = csv.reader(data)
         for column in read_data:
             if make_floats:
-                x.append(list(map(float, column[start_index:-end_index])))
+                new_column = []
+                for something in column[start_index:end_index]:
+                    if something == "":
+                        new_column.append(0.0)
+                    else:
+                        new_column.append(float(something))
+                x.append(new_column)
+                # x.append(list(map(float, column[start_index:end_index])))
             else:
                 x.append(column[start_index:end_index])
     y=[]
