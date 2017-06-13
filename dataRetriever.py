@@ -28,7 +28,7 @@ def retrieveData(file_loc="data/UCI_Credit_Card.csv", randomize=True, make_float
     return x, y
 
 
-def get_data(path_features="data/dengue_features_train.csv", path_labels='data/dengue_labels_train',
+def get_data(path_features="data/dengue_features_train.csv", path_labels='data/dengue_labels_train.csv',
              randomize=True, make_floats=True, start_index=4, end_index=-1, label_index=3):
     x = []
     with open(path_features) as data:
