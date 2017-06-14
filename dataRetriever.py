@@ -62,22 +62,16 @@ def get_data(path_features="data/dengue_features_train.csv", path_labels='data/d
 
     return x, y
 
-def get_reged_data(path_features="data/reged0_train.data", path_labels="data/reged0_train.targets", randomize=True, make_floats=False):
+def get_reged_data(path_features="data/reged0_train.data", path_labels="data/reged0_train.targets", randomize=True):
     x = []
     with open(path_features) as data:
         for column in data.readlines():
-            if make_floats:
-                x.append(list(map(float, column.split())))
-            else:
-                x.append(column.split())
-    print(len(x))
+            x.append(column.split())
     y=[]
     with open(path_labels) as data:
         for column in data.readlines():
-            if make_floats:
-                y.append(float(column))
+            if column == "-1\n":
+                y.append(0)
             else:
-                y.append(column)
-    print(len(x))
-
+                y.append(1)
     return x, y
