@@ -5,7 +5,7 @@ from tensorflow.contrib import learn
 from tensorflow.contrib.learn.python.learn.estimators import model_fn as model_fn_lib
 
 def model(features, labels, mode):
-    input_layer = tf.reshape(features, [-1, 23])
+    input_layer = tf.reshape(features, [-1, 24])
     layer_1 = layers.fully_connected(inputs=input_layer,
                                      num_outputs=100)
     output_layer = layers.fully_connected(inputs=layer_1,

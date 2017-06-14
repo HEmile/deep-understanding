@@ -4,7 +4,7 @@ import model, dataRetriever
 import numpy as np
 
 classifier = learn.Estimator(
-    model_fn=model.model, model_dir="/tmp/ann_model2")
+    model_fn=model.model, model_dir="/tmp_dengue/ann_model")
 tf.initialize_all_variables()
 tensors_to_log = {"probabilities": "sigmoid_tensor"}
 logging_hook = tf.train.LoggingTensorHook(
@@ -14,8 +14,10 @@ x, y = dataRetriever.get_data()
 
 x = np.array(x, dtype=np.float32)
 y = np.array(y, dtype=np.float32)
-xtrain, ytrain = x[:25000], y[:25000]
-xtest, ytest = x[25000:], y[25000:]
+y = y > 20
+y = np.array(y, dtype=np.float32)
+xtrain, ytrain = x[:1300], y[:1300]
+xtest, ytest = x[1300:], y[1300:]
 
 metrics = {"accuracy":
               learn.MetricSpec(
