@@ -74,4 +74,10 @@ def get_reged_data(path_features="data/reged0_train.data", path_labels="data/reg
                 y.append(0)
             else:
                 y.append(1)
+
+    if randomize:
+        combined = list(zip(x, y))
+        random.shuffle(combined)
+        x[:], y[:] = zip(*combined)
+
     return x, y
